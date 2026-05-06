@@ -1,8 +1,23 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Footer.module.css";
 import Footerlogo from "../assets/Neyveli-white.png";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const scrollToSection = (sectionId) => {
+    const currentPath = window.location.hash.replace("#", "");
+    if (currentPath === "/" || currentPath === "") {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  };
+
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -19,19 +34,19 @@ const Footer = () => {
           <h4 className={styles.heading}>Quick Links</h4>
           <ul className={styles.linkList}>
             <li>
-              <a href="/">Home</a>
+              <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Home</Link>
             </li>
             <li>
-              <a href="/about">About Us</a>
+              <Link to="/about">About Us</Link>
             </li>
             <li>
-              <a href="/services">Our Services</a>
+              <Link to="/services">Our Services</Link>
             </li>
             <li>
-              <a href="/contact">Contact Us</a>
+              <Link to="/contact">Contact Us</Link>
             </li>
             <li>
-              <a href="#/privacy-policy">Privacy Policy</a>
+              <Link to="/privacy-policy">Privacy Policy</Link>
             </li>
           </ul>
         </div>
@@ -41,16 +56,16 @@ const Footer = () => {
           <h4 className={styles.heading}>Useful Links</h4>
           <ul className={styles.linkList}>
             <li>
-              <a href="#testimonials">Testimonials</a>
+              <a href="#testimonials" onClick={(e) => { e.preventDefault(); scrollToSection("testimonials"); }}>Testimonials</a>
             </li>
             <li>
-              <a href="#BookAppointment">Book Appointment</a>
+              <a href="#BookAppointment" onClick={(e) => { e.preventDefault(); scrollToSection("BookAppointment"); }}>Book Appointment</a>
             </li>
             <li>
-              <a href="#Skin-treatments">Skin Treatments</a>
+              <a href="#Skin-treatments" onClick={(e) => { e.preventDefault(); scrollToSection("Skin-treatments"); }}>Skin Treatments</a>
             </li>
             <li>
-              <a href="#Hair-treatments">Hair Treatments</a>
+              <a href="#Hair-treatments" onClick={(e) => { e.preventDefault(); scrollToSection("Hair-treatments"); }}>Hair Treatments</a>
             </li>
           </ul>
         </div>
